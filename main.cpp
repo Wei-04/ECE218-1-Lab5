@@ -22,9 +22,10 @@
 
 //=====[Defines]===============================================================
 
-#define DUTY_MIN 0.025
-#define DUTY_MAX 0.125
-#define PERIOD 0.02
+#define DUTY_MIN 0.0187 //minimum rotation
+#define DUTY_MAX 0.1145 //maximum rotation
+#define PERIOD 0.02 //20 ms period
+#define DELAY 5000 //5 second delay
 
 //=====[Declaration and initialization of public global objects]===============
 
@@ -36,17 +37,25 @@ PwmOut servo(PF_9);
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-
+void servoInit(); //initializes start
 
 //=====[Main function, the program entry point after power on or reset]========
 
 int main() //main function loop
 {
-    
+    servoInit();
     while (true) {
-        servo.period(PERIOD);
-        servo.write(DUTY_MIN):
+        servo.write(DUTY_MIN);
+        delay(DELAY);
+        servo.write(DUTY_MAX);
+        delay(DELAY);
         }
 }
 
 //=====[Implementation of global functions]====================================
+
+
+void servoInit() {
+    servo.period(PERIOD);
+    servo.write(DUTY_MIN);
+}
